@@ -14,7 +14,15 @@
        - wazuh-dashboard
        - filebeat
     - name: Upgrade all packages on servers
-      apt: upgrade=dist force_apt_get=yes
+      apt: upgrade=dist force_apt_get=yes autoclean=yes
+      register: result
+    - name: List installed and updated packages
+      shell: grep -E "^$(date +%Y-%m-%d).+ (install|upgrade) " /var/log/dpkg.log |cut -d " " -f 3-5
+      register: result
+    - name: Show Output
+      debug: msg="{{ result.stdout_lines }}"
+    - name: Upgrade all packages on servers
+      
 
     - name: Check if a reboot is needed on all servers
       register: reboot_required_file
