@@ -25,6 +25,8 @@
           - docker-ce
           - docker-ce-cli
           - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
         state: latest
         update_cache: yes
     - name: adding users to group docker
