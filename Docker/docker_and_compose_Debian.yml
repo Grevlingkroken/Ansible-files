@@ -1,4 +1,5 @@
-- hosts: all
+- name: Install Docker engine
+  hosts: all
   become: true
   tasks:
     - name: install dependencies
@@ -12,15 +13,15 @@
           - lsb-release
         state: latest
         update_cache: yes
-    - name: GPG key
+    - name: Add Docker GPG key
       apt_key:
         url: https://download.docker.com/linux/debian/gpg
         state: present
-    - name: repository docker
+    - name: Add Docker repository
       apt_repository:
         repo: deb https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
         state: present
-    - name: install docker
+    - name: install docker engine packages
       apt:
         name:
           - docker-ce
