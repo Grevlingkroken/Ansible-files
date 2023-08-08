@@ -8,11 +8,11 @@
       dpkg_selections:
         name: "{{ item }}"
         selection: hold
-     loop:
-      - wazuh-indexer
-      - wazuh-manager 
-      - wazuh-dashboard
-      - filebeat
+      loop:
+       - wazuh-indexer
+       - wazuh-manager 
+       - wazuh-dashboard
+       - filebeat
     - name: Upgrade all packages on servers
       apt: upgrade=dist force_apt_get=yes
 
