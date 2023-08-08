@@ -27,6 +27,11 @@
           - containerd.io
         state: latest
         update_cache: yes
+    - name: List installed and updated packages
+      shell: grep -E "^$(date +%Y-%m-%d).+ (install|upgrade) " /var/log/dpkg.log |cut -d " " -f 3-5
+      register: result
+    - name: Show Output
+      debug: msg="{{ result.stdout_lines }}"        
     - name: adding users to group docker
       user:
         name: '{{ item }}'
