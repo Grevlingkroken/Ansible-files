@@ -25,6 +25,8 @@
           - docker-ce
           - docker-ce-cli
           - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
         state: latest
         update_cache: yes
     - name: adding users to group docker
@@ -33,7 +35,7 @@
         groups: docker
         append: yes
       loop:
-        - edb99003
+        - User1
     - name: Install docker-compose
       get_url:
         url : https://github.com/docker/compose/releases/download/v2.20.2/docker-compose-linux-x86_64
