@@ -1,48 +1,49 @@
- hosts: docker
- become: true
- tasks:
-   - name: install dependencies
-     apt:
-       name:
-         - apt-transport-https
-         - ca-certificates
-         - curl
-         - gnupg-agent
-         - software-properties-common
-       state: latest
-       update_cache: yes
-   - name: GPG key
-     apt_key:
-       url: https://download.docker.com/linux/debian/gpg
-       state: present
-   - name: repository docker
-     apt_repository:
-       repo: deb https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
-       state: present
-   - name: install docker
-     apt:
-       name:
-         - docker-ce
-         - docker-ce-cli
-         - containerd.io
-         - docker-buildx-plugin
-         - docker-compose-plugin
-       state: latest
-       update_cache: yes
-   - name: List installed and updated packages
-     shell: grep -E "^$(date +%Y-%m-%d).+ (install|upgrade) " /var/log/dpkg.log |cut -d " " -f 3-5
-     register: result
-   - name: Show Output
-     debug: msg="{{ result.stdout_lines }}"        
-   - name: adding users to group docker
-     user:
-       name: '{{ item }}'
-       groups: docker
-       append: yes
-     loop:
-       - edb99003
-   - name: Install docker-compose
-     get_url:
-       url : https://github.com/docker/compose/releases/download/v2.20.2/docker-compose-linux-x86_64
-       dest: /usr/local/bin/docker-compose
-       mode: '755'
+- hosts: docker
+  become: true
+    asks:
+      name: install dependencies
+        pt:
+          ame:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg-agent
+          - software-properties-common
+        state: latest
+        update_cache: yes
+      name: GPG key
+        pt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+      name: repository docker
+        pt_repository:
+        repo: deb https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
+        state: present
+      name: install docker
+        pt:
+          ame:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: latest
+        update_cache: yes
+      name: List installed and updated packages
+      shell: grep -E "^$(date +%Y-%m-%d).+ (install|upgrade) " /var/log/dpkg.log |cut -d " " -f 3-5
+      register: result
+      name: Show Output
+      debug: msg="{{ result.stdout_lines }}"        
+      name: adding users to group docker
+        ser:
+        name: '{{ item }}'
+        groups: docker
+        append: yes
+        oop:
+        - edb99003
+      name: Install docker-compose
+        et_url:
+        url : https://github.com/docker/compose/releases/download/v2.20.2/docker-compose-linux-x86_64
+        dest: /usr/local/bin/docker-compos
+          mode: '755'
+    
