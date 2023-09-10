@@ -1,4 +1,6 @@
-- name: Upgrade the OS (apt-get dist-upgrade)
-  become: true
-  ansible.builtin.apt:
-    upgrade: dist
+---
+tasks:
+  - name: Upgrade the OS (apt-get dist-upgrade)
+    become: true
+    ansible.builtin.apt:
+      upgrade: dist
